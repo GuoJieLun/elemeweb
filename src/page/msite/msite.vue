@@ -14,21 +14,34 @@
     <nav class="msite_nav">
       <div class="swiper-container">
         <div class="swiper-wrapper">
-          <div class="swiper-slide">
-              1
-          </div>
-          <div class="swiper-slide">
-            2
+          <div class="swiper-slide food_types_container" v-for="(item,index) in foodTypes" :key="index">
+              <router-link :to="{path:'/food'}" class="link_to_food" v-for="foodItem in item" :key="foodItem.id">
+                <figure>
+                  <img :src="imgBaseUrl + foodItem.image_url">
+                  <figcaption>{{foodItem.title}}</figcaption>
+                </figure>
+              </router-link>
           </div>
         </div>
         <div class="swiper-pagination"></div>
       </div>
     </nav>
+    <div class="shop_list_container">
+      <header class="shop_header">
+        <svg class="shop_icon">
+          <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#shop"></use>
+        </svg>
+        <span class="shop_header_title">附近商家</span>
+      </header>
+      <shop-list v-if="hasGetData" :geohash="geohash"></shop-list>
+    </div>
   </div>
 </template>
 <script>
   import '../../plugins/swiper.min.js'
   import headerTop from '../../components/header/header'
+  import shopList from '../../components/common/shoplist'
+  import {msiteAdress, msiteFoodTypes} from 'src/service/getData'
   export default{
     data(){
       return {
@@ -39,14 +52,33 @@
         imgBaseUrl: 'https://fuss10.elemecdn.com'
       }
     },
+    async beforeMount(){
+      this.geohash = this.$route.query.goehash || 'wtw3sm0q087';
+      this.hasGetData = true;
+      let res = await msiteAdress(this.geohash);
+      this.msietTitle = res.name;
+    },
     mounted(){
-      new Swiper('.swiper-container', {
-        pagination: '.swiper-pagination',
-        loop: true
-      });
+      msiteFoodTypes(this.geohash).then(res => {
+        let resLength = res.length;
+        let resArr = res.concat([]);
+        let foodArr = [];
+        for (let i = 0, j = 0; i < resLength; i += 8, j++) {
+          var spArr = resArr.splice(0, 8);
+          foodArr[j] = spArr;
+        }
+        this.foodTypes = foodArr;
+      }).then(() => {
+        //初始化swiper
+        new Swiper('.swiper-container', {
+          pagination: '.swiper-pagination',
+          loop: true
+        });
+      })
     },
     components: {
-      headerTop
+      headerTop,
+      shopList
     },
   }
 </script>

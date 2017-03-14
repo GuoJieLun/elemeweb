@@ -1,8 +1,20 @@
-import  * as types from './mutation-types'
+import  * as MUTATION from './mutation-types'
 
 export default {
+  //记录当前经纬度
+  [MUTATION.RECORD_ADDRESS](state,{
+    latitude,
+    longitude
+  }){
+    state.latitude = latitude;
+    state.longitude = longitude;
+  },
+  //保存geohash
+  [MUTATION.SAVE_GEOHASH](state, geohash) {
+    state.geohash = geohash;
+  },
   //获取用户信息存入vuex
-  [types.GET_USERINFO](state,info){
+  [MUTATION.GET_USERINFO](state,info){
     if (state.userInfo && (state.userInfo.username !== info.username)) {
       return;
     };

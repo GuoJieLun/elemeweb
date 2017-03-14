@@ -2,6 +2,7 @@ import * as home from './tempdata/home'
 import * as login from './tempdata/login'
 import * as city from './tempdata/city'
 import * as msite from './tempdata/msite'
+import * as food from './tempdata/food'
 
 //创造临时数据
 const setpromise = data => {
@@ -32,6 +33,9 @@ if (process.env.NODE_ENV != 'development') {
   var msiteFoodTypes = geohash => setpromise(msite.foodTypes);
   //获取msite商铺列表
   var shopList = (latitude, longitude, offset) => setpromise(msite.shopList);
+  var foodCategory = (latitude, longitude) => setpromise(food.category);
+  var foodDelivery = (latitude, longitude) => setpromise(food.delivery);
+  var foodActivity = (latitude, longitude) => setpromise(food.activity);
 
 }
 
@@ -44,5 +48,8 @@ export {
   searchplace,
   msiteAdress,
   msiteFoodTypes,
-  shopList
+  shopList,
+  foodCategory,
+  foodDelivery,
+  foodActivity
 }

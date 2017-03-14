@@ -1,6 +1,6 @@
 <template>
   <div>
-    <header-top sigini-up="msite">
+    <header-top signin-up="msite">
       <router-link :to="'/search/' + geohash" class="link_search" slot="search">
         <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" version="1.1">
           <circle cx="9" cy="9" r="8" stroke="rgb(255,255,255)" stroke-width="2" fill="none"/>
@@ -15,7 +15,7 @@
       <div class="swiper-container">
         <div class="swiper-wrapper">
           <div class="swiper-slide food_types_container" v-for="(item,index) in foodTypes" :key="index">
-              <router-link :to="{path:'/food'}" class="link_to_food" v-for="foodItem in item" :key="foodItem.id">
+              <router-link :to="{path:'/food',query:{geohash:geohash,title:foodItem.title, restaurant_category_id: getCategoryId(foodItem.link)}}" class="link_to_food" v-for="foodItem in item" :key="foodItem.id">
                 <figure>
                   <img :src="imgBaseUrl + foodItem.image_url">
                   <figcaption>{{foodItem.title}}</figcaption>
@@ -34,13 +34,16 @@
         <span class="shop_header_title">附近商家</span>
       </header>
       <shop-list v-if="hasGetData" :geohash="geohash"></shop-list>
+      <foot-guide></foot-guide>
     </div>
   </div>
 </template>
-<script>
+<script type="es6">
+  import {mapMutations} from 'vuex'
   import '../../plugins/swiper.min.js'
   import headerTop from '../../components/header/header'
   import shopList from '../../components/common/shoplist'
+  import footGuide from '../../components/footer/footGuide'
   import {msiteAdress, msiteFoodTypes} from 'src/service/getData'
   export default{
     data(){
@@ -53,11 +56,17 @@
       }
     },
     async beforeMount(){
-      this.geohash = this.$route.query.goehash || 'wtw3sm0q087';
-      this.hasGetData = true;
+      this.geohash = this.$route.query.geohash || 'wtw3sm0q087';
+      //保存geohash 到vuex
+      this.SAVE_GEOHASH(this.geohash);
       let res = await msiteAdress(this.geohash);
+      // 记录当前经度纬度
+      this.RECORD_ADDRESS(res);
       this.msietTitle = res.name;
+      this.hasGetData = true;
+
     },
+
     mounted(){
       msiteFoodTypes(this.geohash).then(res => {
         let resLength = res.length;
@@ -76,9 +85,23 @@
         });
       })
     },
+    methods:{
+      ...mapMutations([
+        'RECORD_ADDRESS', 'SAVE_GEOHASH'
+      ]),
+      getCategoryId(url){
+        let urlData = decodeURIComponent(url.split('=')[1].replace('&target_name',''));
+        if (/restaurant_category_id/gi.test(urlData)) {
+          return JSON.parse(urlData).restaurant_category_id.id
+        }else{
+          return ''
+        }
+      }
+    },
     components: {
       headerTop,
-      shopList
+      shopList,
+      footGuide
     },
   }
 </script>

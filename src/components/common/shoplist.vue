@@ -1,7 +1,7 @@
 <template>
   <div class="shoplist_container">
     <ul v-load-more="loaderMore" v-if="shopListArr.length" type="1">
-      <router-link :to="{path:'shop'}" tag="li" class="shop_li" v-for="item in shopListArr" :key="item.id">
+      <router-link :to="{path:'shop',query:{geohash, id: item.id}}" tag="li" class="shop_li" v-for="item in shopListArr" :key="item.id">
         <section>
           <img :src="getImgPath(item.image_path)" class="shop_img">
         </section>
@@ -59,7 +59,7 @@
     </transition>
   </div>
 </template>
-<script>
+<script type="es6">
   import {mapState} from 'vuex'
   import {shopList} from '@/service/getData'
   import {showBack, animate} from '@/utils/utils'
@@ -102,16 +102,14 @@
       },
       //到达底部加啊哎更多数据
       async loaderMore(){
-          console.log(111);
         if (this.preventRepeatReuqest) {
-          return
+          return;
         }
         this.showLoading = true;
         this.preventRepeatReuqest = true;
         this.offset += 20;
         let res = await shopList(this.latitude, this.longitude, this.offset, this.restaurantCategoryId);
         this.shopListArr = [...this.shopListArr, ...res];
-        console.log(this.shopListArr);
         //当获取数据小于20，说明没有更多数据，不需要再次请求数据
         if (res.length < 20) {
           return

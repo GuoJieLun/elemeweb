@@ -1,4 +1,4 @@
-import * as types from './mutation-types.js'
+import * as MUTATION from './mutation-types.js'
 import {
   getUser,
   getAddressList
@@ -8,6 +8,6 @@ export default {
     commit
   }){
     let res = await getUser();
-    commit(types.GET_USERINFO,res);
+    commit(MUTATION.GET_USERINFO,res);
   }
 }

@@ -7,7 +7,7 @@
         <polyline points="12,18 4,9 12,0" style="fill:none;stroke:rgb(255,255,255);stroke-width:2"/>
       </svg>
     </section>
-    <router-link :to="userInfo? '/profile' : '/login' " v-if="signinUp" class="head_login">
+    <router-link :to="userInfo? '/profile':'/login'" v-if='signinUp' class="head_login">
       <svg class="user_avatar" v-if="userInfo">
         <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#user"></use>
       </svg>
@@ -22,18 +22,16 @@
     <slot name="changeLogin"></slot>
   </header>
 </template>
-<script>
+<script type="es6">
   import {mapState, mapActions} from 'vuex'
   export default{
     data(){
       return {
-        siginUp: false,
-        userInfo: false
       }
     },
     created(){
       //获取用户信息
-      this.getUserInfo();
+     this.getUserInfo();
     },
     computed: {
       ...mapState([
@@ -44,7 +42,7 @@
     methods: {
       ...mapActions([
         'getUserInfo'
-      ]),
+      ])
     }
 
   }

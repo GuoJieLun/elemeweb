@@ -90,7 +90,7 @@
             <section style="width: 100%;">
               <header class="filter_header_style">配送方式</header>
               <ul class="filter_ul">
-                <li v-for="item in Delivery" :key="item.id" class="filter_li">
+                <li v-for="item in Delivery" :key="item.id" class="filter_li" @click="selectDeliveryMode(item.id)">
                   <svg :style="{opacity: (item.id == 0)&&(delivery_mode !== 0)? 0: 1}">
                     <use xmlns:xlink="http://www.w3.org/1999/xlink"
                          :xlink:href="delivery_mode == item.id? '#selected':'#fengniao'"></use>
@@ -102,7 +102,7 @@
             <section style="width:100%">
               <header class="filter_header_style">商家属性（可以多选）</header>
               <ul class="filter_ul" style="paddingBottom: .5rem;">
-                <li v-for="(item,index) in Activity" :key="item.id" class="filter_li">
+                <li v-for="(item,index) in Activity" :key="item.id" class="filter_li" @click="selectSupportIds(index, item.id)">
                   <svg v-show="support_ids[index].status" class="activity_svg">
                     <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#selected"></use>
                   </svg>
@@ -118,6 +118,21 @@
           </section>
         </transition>
       </div>
+    </section>
+    <transition name="showcover">
+      <div class="back_cover" v-show="sortBy"></div>
+    </transition>
+    <section class="shop_list_container">
+      <shop-list v-if="latitude"  @DidConfrim="clearAll"
+        :geohash="geohash"
+        :restaurantCategoryId="restaurant_category_id"
+        :restaurantCategoryIds="restaurant_category_ids"
+        :sortByType='sortByType'
+        :deliveryMode="delivery_mode"
+        :confirmSelect="confirmStatus"
+        :supportIds="support_ids">
+
+      </shop-list>
     </section>
   </div>
 </template>
@@ -243,6 +258,18 @@
           }
         }
       },
+      //筛选配送方式
+      selectDeliveryMode(id){
+         if(this.delivery_mode == null){
+             this.filterNum++;
+             this.delivery_mode = id;
+         }else if(this.delivery_mode == id){
+             this.filterNum--;
+             this.delivery_mode = null;
+         }else{
+             this.delivery_mode = id;
+         }
+      },
       //点击排序
       sortList(event){
         this.sortByType = event.target.getAttribute('data');
@@ -250,7 +277,9 @@
       },
       //选中Category右侧列表的某个选项时，进行筛选，重新获取数据并渲染
       getCategoryIds(id, name){
-
+        this.restaurant_category_ids = id;
+        this.sortBy = '';
+        this.headTitle = this.foodTitle = name;
       },
       //点击商家活动,状态去翻
       selectSupportIds(index, id){

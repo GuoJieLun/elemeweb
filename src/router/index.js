@@ -6,7 +6,7 @@ const home = r => require.ensure([], () => r(require('../page/home/home')), 'hom
 const city = r => require.ensure([], () => r(require('../page/city/city')), 'city');
 const msite = r => require.ensure([], () => r(require('../page/msite/msite')), 'msite');
 const food = r => require.ensure([], () => r(require('../page/food/food')), 'food');
-
+const search = r => require.ensure([], () => r(require('../page/search/search')), 'search');
 
 Vue.use(Router)
 
@@ -36,6 +36,10 @@ export default new Router({
         {
           path:'/food',
           component:food
+        },
+        {
+          path:'/search/:geohash',
+          component:search
         }
       ]
     }

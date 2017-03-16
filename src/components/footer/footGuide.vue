@@ -185,11 +185,12 @@
           'geohash'
       ])
     },
-    methods:{
-        gotoAddress(path){
-            this.$route.push(path)
-        }
-    }
+    methods: {
+      gotoAddress(path){
+        this.$router.push(path)
+      }
+    },
+
   }
 </script>
 <style lang="scss" scoped>

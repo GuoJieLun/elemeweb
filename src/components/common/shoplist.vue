@@ -1,7 +1,8 @@
 <template>
   <div class="shoplist_container">
     <ul v-load-more="loaderMore" v-if="shopListArr.length" type="1">
-      <router-link :to="{path:'shop',query:{geohash, id: item.id}}" tag="li" class="shop_li" v-for="item in shopListArr" :key="item.id">
+      <router-link :to="{path:'shop',query:{geohash, id: item.id}}" tag="li" class="shop_li" v-for="item in shopListArr"
+                   :key="item.id">
         <section>
           <img :src="getImgPath(item.image_path)" class="shop_img">
         </section>
@@ -131,6 +132,27 @@
         } else {
           this.showLoading = false;
         }
+      },
+      async listenPropChange(){
+        console.log(111111);
+        this.showLoading = true;
+        this.offset = 0;
+        let res = await shopList(this.latitude, this.longitude, this.offset, '', this.restaurantCategoryIds, this.sortByType, this.deliveryMode, this.supportIds);
+        this.showLoading = false;
+        this.shopListArr = [...res];
+      }
+    },
+    watch: {
+      //监听传参,改变时,重新请求列表
+      restaurantCategoryIds: function (value){
+        this.listenPropChange();
+      },
+      sortByType: function (value){
+        this.listenPropChange();
+      },
+      confirmSelect:function (value) {
+        this.listenPropChange();
+        this.$emit('DidConfrim');
       }
     }
   }

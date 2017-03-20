@@ -9,6 +9,16 @@ export default {
     state.latitude = latitude;
     state.longitude = longitude;
   },
+  //保存用户信息
+  [MUTATION.RECORD_USERINFO](state,info){
+    state.userInfo = info;
+    state.login = true;
+    let validity = 30;
+    let now = new Date();
+    now.setTime(now.getTime() + validity * 24 * 60 * 60 * 1000);
+    document.cookie = "USERID=" + info.user_id + ";expires=" + now.toGMTString();
+    document.cookie = "SID=huRyTRd9QLij7NkbpHJoj3PQrx1eRiO6bAiw" + ";expires=" + now.toGMTString();
+  },
   //保存geohash
   [MUTATION.SAVE_GEOHASH](state, geohash) {
     state.geohash = geohash;
@@ -22,7 +32,7 @@ export default {
       return
     }
     if (!info.message) {
-      //state.userInfo = {...info};
+      state.userInfo = {...info};
       let validity = 30;
       let now = new Date();
       now.setTime(now.getTime() + validity * 24 * 60 * 60 * 1000);

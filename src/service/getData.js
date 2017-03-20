@@ -34,15 +34,32 @@ if (process.env.NODE_ENV != 'development') {
   var msiteFoodTypes = geohash => setpromise(msite.foodTypes);
   //获取msite商铺列表
   var shopList = (latitude, longitude, offset) => setpromise(msite.shopList);
+  //获取food页面的 category 种类列表
   var foodCategory = (latitude, longitude) => setpromise(food.category);
+  //获取food页面的配送方式
   var foodDelivery = (latitude, longitude) => setpromise(food.delivery);
+  //获取food页面的商家属性活动列表
   var foodActivity = (latitude, longitude) => setpromise(food.activity);
+  //获取search页面搜索结果
   var searchRestaurant = (geohash, keyword) => setpromise(search.searchData);
+  //验证码
+  var mobileCode = phone => setpromise(login.validate_token);
+  //登录
+  var accountLogin = (username, password, captcha_code) => setpromise(login.userInfo);
+  //检测帐号是否存在
+  var checkExsis = (checkNumber, type) => setpromise(login.checkExsis);
+  //发送账号
+  var sendMobile = (sendData, captcha_code, type, password) => setpromise(login.send);
+  var getcaptchas = () => setpromise(login.cpatchs);
+
+
 
 
 }
+var sendLogin = (code, mobile, validate_token) => setpromise(login.userInfo);
 
 export {
+  sendLogin,
   cityGuess,
   hotcity,
   groupcity,
@@ -55,5 +72,10 @@ export {
   foodCategory,
   foodDelivery,
   foodActivity,
-  searchRestaurant
+  searchRestaurant,
+  mobileCode,
+  accountLogin,
+  checkExsis,
+  sendMobile,
+  getcaptchas
 }

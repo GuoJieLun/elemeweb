@@ -56,7 +56,7 @@
   export default{
     data(){
       return {
-        loginWay: false,//登录方式,默认短信登录
+        loginWay: true,//登录方式,默认短信登录
         showPassword: false,//是否显示密码
         phoneNumber: '13434218786',//电话号码
         mobileCode: null,//短息验证码

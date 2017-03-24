@@ -1,9 +1,17 @@
 import * as home from './tempdata/home'
-import * as login from './tempdata/login'
 import * as city from './tempdata/city'
 import * as msite from './tempdata/msite'
-import * as food from './tempdata/food'
 import * as search from './tempdata/search'
+import * as food from './tempdata/food'
+import * as shop from './tempdata/shop'
+import * as login from './tempdata/login'
+import * as confirm from './tempdata/confirm'
+import * as order from './tempdata/order'
+import * as service from './tempdata/service'
+import * as addDetail from './tempdata/addDetail'
+import * as addresspart from './tempdata/address'
+import * as vip from './tempdata/vip'
+import * as hongbao from './tempdata/hongbao'
 
 //创造临时数据
 const setpromise = data => {
@@ -52,7 +60,14 @@ if (process.env.NODE_ENV != 'development') {
   var sendMobile = (sendData, captcha_code, type, password) => setpromise(login.send);
   var getcaptchas = () => setpromise(login.cpatchs);
 
-
+  //获取地址
+  var getAddressList = (user_id) => setpromise(addresspart.address);
+  //搜索地址
+  var getSearchAddress=(keyword) => setpromise(addDetail.addData);
+  //删除地址
+  var deleteAddress=(userid, addressid) =>  setpromise(vip.vipcart);
+  //保存地址
+  var postAddAddress = (userId, address, address_detail, geohash, name, phone, phone_bk, poi_type, sex, tag, tag_type) => setpromise(confirm.addAddress);
 
 
 }
@@ -77,5 +92,9 @@ export {
   accountLogin,
   checkExsis,
   sendMobile,
-  getcaptchas
+  getcaptchas,
+  getAddressList,
+  getSearchAddress,
+  deleteAddress,
+  postAddAddress
 }

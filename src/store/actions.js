@@ -9,5 +9,12 @@ export default {
   }){
     let res = await getUser();
     commit(MUTATION.GET_USERINFO,res);
+  },
+  async saveAddress({
+    commit,
+    state
+  }){
+    let address = await getAddressList(state.userInfo.user_id);
+    commit(MUTATION.SAVE_ADDRESS,address);
   }
 }

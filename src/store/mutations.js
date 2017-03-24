@@ -41,5 +41,31 @@ export default {
     } else {
       state.userInfo = null;
     }
-  }
+  },
+  //保存图片
+  [MUTATION.SAVE_AVANDER](state, imgPath) {
+    state.imgPath = imgPath;
+  },
+  [MUTATION.OUT_LOGIN](state){
+    state.userInfo = null;
+    state.login = false;
+  },
+  //保存用户名
+  [MUTATION.RETSET_NAME](state,username){
+    state.userInfo = Object.assign({}, state.userInfo,{username});
+    console.log(    state.userInfo);
+  },
+  //保存地址
+  [MUTATION.SAVE_ADDRESS](state,newAddress){
+     state.removeAddress = newAddress;
+
+  },
+  //新增地址
+  [MUTATION.ADD_ADDRESS](state,newAddress){
+    state.removeAddress = [newAddress, ...state.removeAddress];
+  },
+  //搜索保存地址
+  [MUTATION.SAVE_ADDDETAIL](state, addAddress){
+    state.addAddress=addAddress;
+  },
 }

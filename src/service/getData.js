@@ -68,7 +68,10 @@ if (process.env.NODE_ENV != 'development') {
   var deleteAddress=(userid, addressid) =>  setpromise(vip.vipcart);
   //保存地址
   var postAddAddress = (userId, address, address_detail, geohash, name, phone, phone_bk, poi_type, sex, tag, tag_type) => setpromise(confirm.addAddress);
+  //获取优惠券
+  var getHongbaoNum= id => setpromise(hongbao.dataList);
 
+  var getExpired= id => setpromise(hongbao.expired);
 
 }
 var sendLogin = (code, mobile, validate_token) => setpromise(login.userInfo);
@@ -96,5 +99,7 @@ export {
   getAddressList,
   getSearchAddress,
   deleteAddress,
-  postAddAddress
+  postAddAddress,
+  getHongbaoNum,
+  getExpired
 }

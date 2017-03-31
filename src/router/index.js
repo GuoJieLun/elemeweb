@@ -22,7 +22,16 @@ const addDetail = r => require.ensure([], () => r(require('../page/profile/child
 
 const forget = r => require.ensure([], () => r(require('../page/forget/forget')), 'forget');
 const setusername = r => require.ensure([], () => r(require('../page/profile/children/setusername')), 'setusername');
+//我的余额
+const balance = r => require.ensure([], () => r(require('../page/balance/balance')), 'balance');
+const detail = r => require.ensure([], () => r(require('../page/balance/detail')), 'detail');
+//我的优惠
+const benefit = r => require.ensure([], () => r(require('../page/benefit/benefit')), 'benefit');
+const hbDescription = r => require.ensure([], () => r(require('../page/benefit/children/hbDescription')), 'hbDescription');
+const hbHistory = r => require.ensure([], () => r(require('../page/benefit/children/hbHistory')), 'hbHistory');
+const coupon = r => require.ensure([], () => r(require('../page/benefit/children/coupon')), 'coupon');
 
+const download = r => require.ensure([], () => r(require('../page/download/download')), 'download');
 Vue.use(Router)
 
 export default new Router({
@@ -77,14 +86,14 @@ export default new Router({
                 {
                   path: 'address',
                   component: address,
-                  children:[
+                  children: [
                     {
-                      path:'add',
-                      component:add,
-                      children:[
+                      path: 'add',
+                      component: add,
+                      children: [
                         {
-                          path:'addDetail',
-                          component:addDetail
+                          path: 'addDetail',
+                          component: addDetail
                         }
                       ]
                     }
@@ -98,9 +107,43 @@ export default new Router({
             }
           ]
         },
+        //我的余额
+        {
+          path: 'balance',
+          component: balance,
+          children: [
+            {
+              path: 'detail',
+              component: detail
+            }
+          ]
+        },
+        //我的优惠
+        {
+          path: 'benefit',
+          component: benefit,
+          children:[
+            {
+              path:'hbDescription',
+              component:hbDescription
+            },
+            {
+              path:'hbHistory',
+              component:hbHistory
+            },
+            {
+              path:'coupon',
+              component:coupon
+            }
+          ]
+        },
         {
           path: '/forget',
           component: forget
+        },
+        {
+          path:'/download',
+          component:download
         }
       ]
     }

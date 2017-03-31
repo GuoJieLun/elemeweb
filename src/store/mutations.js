@@ -68,4 +68,8 @@ export default {
   [MUTATION.SAVE_ADDDETAIL](state, addAddress){
     state.addAddress=addAddress;
   },
+  //清空当前商品的购物车信息
+  [MUTATION.CLEAR_CART](state,shopid){
+    console.log('我进来了');
+  }
 }

@@ -8,4 +8,4 @@ export const  RETSET_NAME = 'RETSET_NAME';//保存用户名
 export const  SAVE_ADDRESS = 'SAVE_ADDRESS';//保存地址
 export const ADD_ADDRESS = 'ADD_ADDRESS';//新增地址
 export const SAVE_ADDDETAIL = 'SAVE_ADDDETAIL';//保存地址
-
+export const CLEAR_CART = 'CLEAR_CART';

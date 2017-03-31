@@ -126,6 +126,8 @@
             name: this.message,
             address: this.mesthree,
             address_detail: this.addAddress,
+
+
             geohash: 'wtw37r7cxep4',
             phone: this.telenum,
             phone_bk: this.standbytelenum,

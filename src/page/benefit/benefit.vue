@@ -93,6 +93,7 @@
   import loading from  '@/components/common/loading'
   import {mapState, mapMutations} from 'vuex'
   import {getHongbaoNum} from '@/service/getData'
+
   export default {
     data(){
       return {

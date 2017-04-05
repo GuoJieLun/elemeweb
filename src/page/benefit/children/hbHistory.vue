@@ -2,7 +2,36 @@
   <div class="rating_page">
     <header-top head-title="历史红包" go-back="true"></header-top>
     <section v-if="!showLoading" id="scroll_section" class="scroll_container">
+      <ul class="hongbao_list_ul">
+        <li class="hongbao_list_li" v-for="item in expiredList" :key="item.id">
+          <section class="list_item">
+            <div class="list_item_left">
+              <span>¥</span>
+              <span>{{String(item.amount).split('.')[0]}}</span>
+              <span>.</span>
+              <span>{{String(item.amount).split('.')[1]||0}}</span>
+            </div>
+            <div class="list_item_right">
+              <h4>{{item.name}}</h4>
+              <ul>
+                <li v-for="(descriptions, index) in item.descriptions" :key="index">{{descriptions}}</li>
+              </ul>
+            </div>
+          </section>
+          <footer class="list_item_footer" v-if="item.extra_limit">
+            <ul>
+              <li v-for="(limit, index) in item.extra_limit" :key="index">
+                {{limit}}
+              </li>
+            </ul>
+          </footer>
+          <svg class="expired">
+            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#expired"></use>
+          </svg>
+        </li>
+      </ul>
     </section>
+    <loading v-if="showLoading"></loading>
   </div>
 </template>
 <script type="es6">
@@ -13,17 +42,18 @@
   import BScroll from 'better-scroll'
   export default{
     data(){
-      return{
+      return {
         showAlert: false,
         alertText: null,
         showLoading: true,
         expiredList: null, //历史红包列表
       }
     },
-    components:{
-      headerTop
+    components: {
+      headerTop,
+      loading
     },
-    methods:{
+    methods: {
       ...mapMutations([
         'CLEAR_CART'
       ]),
@@ -31,27 +61,28 @@
         //获取历史红包
         if (this.userInfo) {
           this.expiredList = await getExpired(this.userInfo.user_id);
+          console.log(this.expiredList);
           this.showLoading = false;
           this.$nextTick(() => {
-//            new BScroll('#scroll_section', {
-//              deceleration: 0.001,
-//              bounce: true,
-//              swipeTime: 1800,
-//              click: true,
-//            });
+            new BScroll('#scroll_section', {
+              deceleration: 0.001,
+              bounce: true,
+              swipeTime: 1800,
+              click: true,
+            });
           })
         }
       }
     },
-    computed:{
+    computed: {
       ...mapState([
-          'userInfo'
+        'userInfo'
       ])
     },
-    watch:{
-        userInfo:function (value) {
-            this.initData();
-        }
+    watch: {
+      userInfo: function (value) {
+        this.initData();
+      }
     }
   }
 </script>
@@ -144,4 +175,3 @@
   }
   }
 </style>
-

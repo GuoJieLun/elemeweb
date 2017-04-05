@@ -72,6 +72,8 @@ if (process.env.NODE_ENV != 'development') {
   var getHongbaoNum= id => setpromise(hongbao.dataList);
 
   var getExpired= id => setpromise(hongbao.expired);
+  var exChangeHongbao= (id, exchange_code, captcha_code) => setpromise(hongbao.exchange);
+  var getOrderList = (user_id, offset) => setpromise(order.orderList);
 
 }
 var sendLogin = (code, mobile, validate_token) => setpromise(login.userInfo);
@@ -101,5 +103,7 @@ export {
   deleteAddress,
   postAddAddress,
   getHongbaoNum,
-  getExpired
+  getExpired,
+  exChangeHongbao,
+  getOrderList
 }

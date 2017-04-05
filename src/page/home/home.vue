@@ -17,28 +17,28 @@
     </nav>
 
     <section id="hot_city_container">
-        <h4 class="city_title">热门城市</h4>
-        <ul class="citylistul clear">
-          <router-link tag="li" v-for="item in hotcity" :to="'/city/' + item.id " :key="item.id">
-            {{item.name}}
-          </router-link>
-        </ul>
-      </section>
-      <section class="group_city_container">
-        <ul class="letter_classify">
-          <li v-for="(value, key, index) in sortgroupcity" :key="key"  class="letter_classify_li">
-            <h4 class="city_title">{{key}}
-              <span v-if="index == 0">（按字母排序）</span>
-            </h4>
-            <ul class="groupcity_name_container citylistul clear">
-              <router-link  tag="li" v-for="item in value" :to="'/city/' + item.id" :key="item.id" class="ellipsis">
-                {{item.name}}
+      <h4 class="city_title">热门城市</h4>
+      <ul class="citylistul clear">
+        <router-link tag="li" v-for="item in hotcity" :to="'/city/' + item.id " :key="item.id">
+          {{item.name}}
+        </router-link>
+      </ul>
+    </section>
+    <section class="group_city_container">
+      <ul class="letter_classify">
+        <li v-for="(value, key, index) in sortgroupcity" :key="key" class="letter_classify_li">
+          <h4 class="city_title">{{key}}
+            <span v-if="index == 0">（按字母排序）</span>
+          </h4>
+          <ul class="groupcity_name_container citylistul clear">
+            <router-link tag="li" v-for="item in value" :to="'/city/' + item.id" :key="item.id" class="ellipsis">
+              {{item.name}}
 
-              </router-link>
-            </ul>
-          </li>
-        </ul>
-      </section>
+            </router-link>
+          </ul>
+        </li>
+      </ul>
+    </section>
   </div>
 </template>
 <script>

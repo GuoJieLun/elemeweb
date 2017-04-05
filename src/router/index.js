@@ -30,8 +30,17 @@ const benefit = r => require.ensure([], () => r(require('../page/benefit/benefit
 const hbDescription = r => require.ensure([], () => r(require('../page/benefit/children/hbDescription')), 'hbDescription');
 const hbHistory = r => require.ensure([], () => r(require('../page/benefit/children/hbHistory')), 'hbHistory');
 const coupon = r => require.ensure([], () => r(require('../page/benefit/children/coupon')), 'coupon');
-
+const exchange = r => require.ensure([], () => r(require('../page/benefit/children/exchange')), 'exchange');
+const commend = r => require.ensure([], () => r(require('../page/benefit/children/commend')), 'commend');
 const download = r => require.ensure([], () => r(require('../page/download/download')), 'download');
+
+//我的积分
+const points = r => require.ensure([], () => r(require('../page/points/points')), 'points');
+const pointsDetail = r => require.ensure([], () => r(require('../page/points/children/detail')), 'pointsDetail');
+
+//我的订单
+const order = r => require.ensure([], () => r(require('../page/order/order')), 'order');
+
 Vue.use(Router)
 
 export default new Router({
@@ -122,18 +131,37 @@ export default new Router({
         {
           path: 'benefit',
           component: benefit,
+          children: [
+            {
+              path: 'hbDescription',
+              component: hbDescription
+            },
+            {
+              path: 'hbHistory',
+              component: hbHistory
+            },
+            {
+              path: 'coupon',
+              component: coupon
+            },
+            {
+              path: 'exchange',
+              component: exchange
+            },
+            {
+              path: 'commend',
+              component: commend
+            }
+          ]
+        },
+        //我的积分
+        {
+          path: 'points',
+          component:points,
           children:[
             {
-              path:'hbDescription',
-              component:hbDescription
-            },
-            {
-              path:'hbHistory',
-              component:hbHistory
-            },
-            {
-              path:'coupon',
-              component:coupon
+              path:'detail',
+              component:pointsDetail
             }
           ]
         },
@@ -142,8 +170,13 @@ export default new Router({
           component: forget
         },
         {
-          path:'/download',
-          component:download
+          path: '/download',
+          component: download
+        },
+        //我的订单
+        {
+          path:'order',
+          component:order
         }
       ]
     }

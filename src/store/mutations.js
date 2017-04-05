@@ -71,5 +71,9 @@ export default {
   //清空当前商品的购物车信息
   [MUTATION.CLEAR_CART](state,shopid){
     console.log('我进来了');
-  }
+  },
+  //进入订单详情页前保存该订单信息
+  [MUTATION.SAVE_ORDER](state, orderDetail) {
+    state.orderDetail = orderDetail;
+  },
 }

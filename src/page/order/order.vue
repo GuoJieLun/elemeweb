@@ -26,7 +26,7 @@
             </section>
           </div>
           <div class="order_again">
-            <compute-time v-if="item.status_bar.title !== '等待支付'" :time="item.formatted_created_at"></compute-time>
+            <compute-time v-if="item.status_bar.title == '等待支付'" :time="item.formatted_created_at"></compute-time>
             <router-link :to="{path: '/shop', query: {geohash, id: item.restaurant_id}}" tag="span" class="buy_again" v-else>再来一单</router-link>          </div>
         </section>
       </li>

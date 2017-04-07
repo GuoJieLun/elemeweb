@@ -74,6 +74,13 @@ if (process.env.NODE_ENV != 'development') {
   var getExpired= id => setpromise(hongbao.expired);
   var exChangeHongbao= (id, exchange_code, captcha_code) => setpromise(hongbao.exchange);
   var getOrderList = (user_id, offset) => setpromise(order.orderList);
+  var getOrderDetail = (user_id, orderid) => setpromise(order.orderDetail);
+  //店铺
+  var shopDetails = (shopid, latitude, longitude) => setpromise(shop.shopDetails);
+  var foodMenu = restaurant_id => setpromise(shop.shopMenu);
+  var getRatingList = (offset, tag_name = '') => setpromise(shop.ratingList);
+  var ratingScores = shopid => setpromise(shop.scores);
+  var ratingTags = shopid => setpromise(shop.tage);
 
 }
 var sendLogin = (code, mobile, validate_token) => setpromise(login.userInfo);
@@ -105,5 +112,11 @@ export {
   getHongbaoNum,
   getExpired,
   exChangeHongbao,
-  getOrderList
+  getOrderList,
+  getOrderDetail,
+  shopDetails,
+  foodMenu,
+  getRatingList,
+  ratingScores,
+  ratingTags
 }

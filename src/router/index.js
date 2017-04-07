@@ -40,6 +40,10 @@ const pointsDetail = r => require.ensure([], () => r(require('../page/points/chi
 
 //我的订单
 const order = r => require.ensure([], () => r(require('../page/order/order')), 'order');
+const orderDetail = r => require.ensure([], () => r(require('../page/order/orderDetail')), 'orderDetail');
+
+//商铺
+const shop = r => require.ensure([], () => r(require('../page/shop/shop')), 'shop');
 
 Vue.use(Router)
 
@@ -176,7 +180,18 @@ export default new Router({
         //我的订单
         {
           path:'order',
-          component:order
+          component:order,
+          children:[
+            {
+              path:'orderDetail',
+              component:orderDetail
+            }
+          ]
+        },
+        //商铺信息
+        {
+          path:'shop',
+          component:shop
         }
       ]
     }

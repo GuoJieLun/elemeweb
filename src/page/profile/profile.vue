@@ -168,7 +168,7 @@
         'userInfo'
       ]),
       imgpath: function () {
-        let path;
+        let path;``
         if (this.avatar.indexOf('/') !== -1) {
           path = imgBaseUrl + this.avatar;
         } else {

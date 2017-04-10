@@ -46,7 +46,7 @@
         showAlert: false,
         alertText: null,
         showLoading: true,
-        expiredList: null, //历史红包列表
+        expiredList: null//历史红包列表
       }
     },
     components: {

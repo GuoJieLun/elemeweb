@@ -1,4 +1,8 @@
 import  * as MUTATION from './mutation-types'
+import {
+  setStore,
+  getStore
+} from '../utils/utils'
 
 export default {
   //记录当前经纬度
@@ -76,4 +80,10 @@ export default {
   [MUTATION.SAVE_ORDER](state, orderDetail) {
     state.orderDetail = orderDetail;
   },
+  [MUTATION.INIT_BUYCART](state){
+    let initCart = getStore('buyCart');
+    if(initCart){
+      state.cartList = JSON.parse(initCart);
+    }
+  }
 }

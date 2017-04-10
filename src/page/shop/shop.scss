@@ -549,9 +549,7 @@
   }
 }
 .rating_container{
-  flex: 1;
-  overflow-y: hidden;
-  flex-direction: column;
+
   p, span, li, time{
     font-family: Helvetica Neue,Tahoma,Arial;
   }
@@ -824,6 +822,10 @@
   transform: translateY(100%);
 }
 
+#test{
+  height: 100%;
+
+}
 
 @keyframes mymove{
   0%   { transform: scale(1) }
